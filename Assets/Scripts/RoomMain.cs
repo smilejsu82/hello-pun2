@@ -44,7 +44,7 @@ public class RoomMain : MonoBehaviourPunCallbacks
 
         btnStart.onClick.AddListener(() =>
         {
-            
+            PhotonNetwork.LoadLevel("GameScene");   //다함께 씬으로 넘어 간다 
         });
     }
     
@@ -75,5 +75,6 @@ public class RoomMain : MonoBehaviourPunCallbacks
     public void PRC_OnClickReadyButton(PhotonMessageInfo info)
     {
         Debug.Log($"PRC_OnClickReadyButton : sender: {info.Sender.NickName}, sender isMasterClient: {info.Sender.IsMasterClient}");
+        btnStart.interactable = true;
     }
 }
