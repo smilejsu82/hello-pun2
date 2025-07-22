@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 
-public class RoomMain : MonoBehaviour
+public class RoomMain : MonoBehaviourPunCallbacks
 {
     public TMP_Text player1NicknameText;
     public TMP_Text player2NicknameText;
@@ -30,6 +31,17 @@ public class RoomMain : MonoBehaviour
         Debug.Log($"[RoomMain] Start");
     }
     
-    
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log($"[RoomMain] 다른 플레이어가 룸에 입장 했습니다. : {newPlayer}");
+    }
 
+    public override void OnJoinedRoom()
+    {
+        Debug.Log($"[RoomMain] 방에 입장했습니다.");
+        
+        Debug.Log($"방이름 : {PhotonNetwork.CurrentRoom.Name}");
+        Debug.Log($"방에있는 사람들 : {PhotonNetwork.PlayerList.Length}");
+        Debug.Log($"내가({PhotonNetwork.LocalPlayer.NickName}) 방장인가? {PhotonNetwork.IsMasterClient}");
+    }
 }
