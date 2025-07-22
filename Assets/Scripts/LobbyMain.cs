@@ -76,4 +76,14 @@ public class LobbyMain : MonoBehaviourPunCallbacks
     {
         Debug.Log($"[LobbyMain] OnRoomListUpdate : {roomList.Count}");
     }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log($"[LobbyMain] 플레이어가 룸에 입장 했습니다. : {newPlayer}");
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log($"[LobbyMain] 빠른 입장에 실패 했습니다.  : {returnCode}, {message}");
+    }
 }
