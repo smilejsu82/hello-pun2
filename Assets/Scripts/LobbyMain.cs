@@ -43,7 +43,7 @@ public class LobbyMain : MonoBehaviourPunCallbacks
         
         btnQuickJoinRoom.onClick.AddListener(() =>
         {
-            
+            PhotonNetwork.JoinRandomRoom();
         });
     }
 
