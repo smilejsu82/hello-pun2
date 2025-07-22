@@ -8,19 +8,21 @@ using UnityEngine.SceneManagement;
 public class App : MonoBehaviourPunCallbacks
 {
     string gameVersion = "1";
+    public string nickname;
     
     void Awake()
     {
         // #Critical
         // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
         PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.NickName = nickname;
         
         DontDestroyOnLoad(this.gameObject);
 
         var asyncOperation = SceneManager.LoadSceneAsync("LobbyScene");
         asyncOperation.completed += operation =>
         {
-            
+            GameObject.FindObjectOfType<LobbyMain>().Init();
         };
     }
     
@@ -53,8 +55,15 @@ public class App : MonoBehaviourPunCallbacks
     
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        Debug.Log("마스터 서버에 접속 했습니다.");
+        PhotonNetwork.JoinLobby();
     }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("로비에 접속 했습니다.");
+    }
+
 
     public override void OnDisconnected(DisconnectCause cause)
     {
